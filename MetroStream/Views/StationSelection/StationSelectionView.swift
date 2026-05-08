@@ -141,7 +141,11 @@ struct StationSelectionView: View {
 
     private func synchronizeWheelSelection() {
         let currentStation = selectingDestination ? appState.selectedDestination : appState.selectedStart
-        let fallbackLine = currentStation.flatMap(appState.repository.firstLine(containing:)) ?? lineOptions.first
+        let options = lineOptions
+        let candidateLine = currentStation.flatMap(appState.repository.firstLine(containing:))
+        let fallbackLine = candidateLine.flatMap { candidate in
+            options.contains(where: { $0.id == candidate.id }) ? candidate : nil
+        } ?? options.first
 
         selectedLineID = fallbackLine?.id ?? ""
 
