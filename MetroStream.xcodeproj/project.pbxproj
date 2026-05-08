@@ -1,0 +1,411 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7FAE34309CED6F4F2158A4D0 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71A631D4FD7522569E7346D /* DesignSystem.swift */; };
+		9031D0EFFB1CBECEDDDA6576 /* MetroStreamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302662B89666EA449A09EF09 /* MetroStreamApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5DBA3E21E63BCFD0A53888C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 587ABEB82552EF65967A53FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD8A553B948C924094422747;
+			remoteInfo = MetroStream;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		29C7771E49AEBE3E2B9F30D9 /* MetroStream.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MetroStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		302662B89666EA449A09EF09 /* MetroStreamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStreamApp.swift; sourceTree = "<group>"; };
+		9175340CB396E2853ED31012 /* MetroStreamTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MetroStreamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C71A631D4FD7522569E7346D /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08716E64B841C00A3301548B /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				C71A631D4FD7522569E7346D /* DesignSystem.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		105EA663EA70FE314A9672E6 /* MetroStream */ = {
+			isa = PBXGroup;
+			children = (
+				302662B89666EA449A09EF09 /* MetroStreamApp.swift */,
+				F6CA584059342DEFA1035639 /* Views */,
+			);
+			path = MetroStream;
+			sourceTree = "<group>";
+		};
+		2F3B8D48816917217FD66317 /* MetroStreamTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MetroStreamTests;
+			sourceTree = "<group>";
+		};
+		63FD137746958583CAB10C34 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				29C7771E49AEBE3E2B9F30D9 /* MetroStream.app */,
+				9175340CB396E2853ED31012 /* MetroStreamTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		863031762AFB36C3A31E5F23 = {
+			isa = PBXGroup;
+			children = (
+				105EA663EA70FE314A9672E6 /* MetroStream */,
+				2F3B8D48816917217FD66317 /* MetroStreamTests */,
+				63FD137746958583CAB10C34 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F6CA584059342DEFA1035639 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				08716E64B841C00A3301548B /* Shared */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B0BC3ADD79792A89590623B3 /* MetroStreamTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09915123D904278C41670E52 /* Build configuration list for PBXNativeTarget "MetroStreamTests" */;
+			buildPhases = (
+				E01A869666F9FF2B65804CE7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				72EE7AE974FE2A521F303A0C /* PBXTargetDependency */,
+			);
+			name = MetroStreamTests;
+			packageProductDependencies = (
+			);
+			productName = MetroStreamTests;
+			productReference = 9175340CB396E2853ED31012 /* MetroStreamTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DD8A553B948C924094422747 /* MetroStream */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F35CE422005ED47919BD22BF /* Build configuration list for PBXNativeTarget "MetroStream" */;
+			buildPhases = (
+				F61393ADD9958D59C67BA5DC /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MetroStream;
+			packageProductDependencies = (
+			);
+			productName = MetroStream;
+			productReference = 29C7771E49AEBE3E2B9F30D9 /* MetroStream.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		587ABEB82552EF65967A53FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 055897524B690599D568C42D /* Build configuration list for PBXProject "MetroStream" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 863031762AFB36C3A31E5F23;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 63FD137746958583CAB10C34 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD8A553B948C924094422747 /* MetroStream */,
+				B0BC3ADD79792A89590623B3 /* MetroStreamTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E01A869666F9FF2B65804CE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F61393ADD9958D59C67BA5DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FAE34309CED6F4F2158A4D0 /* DesignSystem.swift in Sources */,
+				9031D0EFFB1CBECEDDDA6576 /* MetroStreamApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		72EE7AE974FE2A521F303A0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD8A553B948C924094422747 /* MetroStream */;
+			targetProxy = 5DBA3E21E63BCFD0A53888C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2DFAA5BF120DB4539E3F6769 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "沙丁鱼罐头";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "用于推荐附近站点";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.sardinecan;
+				PRODUCT_NAME = "沙丁鱼罐头";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		33BEB061DFB1B602E06359C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		3A176E79F53A231655EA5DE9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.sardinecan.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetroStream.app/MetroStream";
+			};
+			name = Release;
+		};
+		486DD8E780BA41E586BD0D9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		A7AEA0103A4B550B19C530D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "沙丁鱼罐头";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "用于推荐附近站点";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.sardinecan;
+				PRODUCT_NAME = "沙丁鱼罐头";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AFDDDAB19CAB90280BF5D5A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.sardinecan.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetroStream.app/MetroStream";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		055897524B690599D568C42D /* Build configuration list for PBXProject "MetroStream" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33BEB061DFB1B602E06359C1 /* Debug */,
+				486DD8E780BA41E586BD0D9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		09915123D904278C41670E52 /* Build configuration list for PBXNativeTarget "MetroStreamTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFDDDAB19CAB90280BF5D5A5 /* Debug */,
+				3A176E79F53A231655EA5DE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F35CE422005ED47919BD22BF /* Build configuration list for PBXNativeTarget "MetroStream" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7AEA0103A4B550B19C530D7 /* Debug */,
+				2DFAA5BF120DB4539E3F6769 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 587ABEB82552EF65967A53FD /* Project object */;
+}
