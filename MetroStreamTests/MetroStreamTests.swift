@@ -99,3 +99,62 @@ final class RideSessionTests: XCTestCase {
         CabinEntry(kind: .text, text: text, routeKey: route.routeKey, isMine: true)
     }
 }
+
+final class AppStateTests: XCTestCase {
+    func testSelectingStationsAndEnteringCabinCreatesRide() throws {
+        let repository = MetroRepository()
+        let store = MemoryStore(fileURL: temporaryURL())
+        let appState = AppState(repository: repository, memoryStore: store)
+        let start = try XCTUnwrap(repository.station(named: "人民广场"))
+        let end = try XCTUnwrap(repository.station(named: "静安寺"))
+
+        appState.openSelection()
+        appState.selectStart(start)
+        appState.selectDestination(end)
+        appState.enterCabin()
+
+        XCTAssertEqual(appState.screen, .cabin)
+        XCTAssertEqual(appState.currentRoute?.lineName, "2号线")
+        XCTAssertEqual(appState.currentRide?.route.start.name, "人民广场")
+    }
+
+    func testPublishingAndEndingRideStoresMemory() throws {
+        let repository = MetroRepository()
+        let store = MemoryStore(fileURL: temporaryURL())
+        let appState = AppState(repository: repository, memoryStore: store)
+        let start = try XCTUnwrap(repository.station(named: "人民广场"))
+        let end = try XCTUnwrap(repository.station(named: "静安寺"))
+
+        appState.selectStart(start)
+        appState.selectDestination(end)
+        appState.enterCabin()
+        try appState.publish(CabinEntry(kind: .text, text: "留下这一句", routeKey: appState.currentRoute?.routeKey ?? ""))
+        appState.endRide()
+
+        XCTAssertEqual(appState.screen, .home)
+        XCTAssertNil(appState.currentRide)
+        XCTAssertEqual(appState.memories.count, 1)
+        XCTAssertEqual(appState.memories[0].entries[0].text, "留下这一句")
+    }
+
+    func testEndingRideWithoutPublishedContentLeavesNoMemory() throws {
+        let repository = MetroRepository()
+        let store = MemoryStore(fileURL: temporaryURL())
+        let appState = AppState(repository: repository, memoryStore: store)
+        let start = try XCTUnwrap(repository.station(named: "人民广场"))
+        let end = try XCTUnwrap(repository.station(named: "静安寺"))
+
+        appState.selectStart(start)
+        appState.selectDestination(end)
+        appState.enterCabin()
+        appState.endRide()
+
+        XCTAssertTrue(appState.memories.isEmpty)
+    }
+
+    private func temporaryURL() -> URL {
+        FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString)
+            .appendingPathExtension("json")
+    }
+}
