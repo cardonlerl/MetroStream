@@ -163,7 +163,7 @@ struct StationSelectionView: View {
             selectedStationID = ""
             return
         }
-        selectedStationID = station.id
+        selectStation(station)
     }
 
     private func selectStationID(_ stationID: String) {
@@ -179,9 +179,11 @@ struct StationSelectionView: View {
             selectingDestination = true
         } else {
             showDistanceWarning = true
-            selectedStationID = appState.selectedStart?.id
+            let currentOptionIDs = Set(stationOptions.map(\.id))
+            let committedStartID = appState.selectedStart?.id
+            let fallbackID = committedStartID.flatMap { currentOptionIDs.contains($0) ? $0 : nil }
                 ?? stationOptions.first(where: { nearbyStationIDs.contains($0.id) })?.id
-                ?? selectedStationID
+            selectedStationID = fallbackID ?? selectedStationID
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 showDistanceWarning = false
             }
