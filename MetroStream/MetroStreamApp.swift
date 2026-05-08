@@ -22,32 +22,7 @@ struct ContentBootstrapView: View {
         case .cabin:
             CabinView(appState: appState)
         case .memories:
-            MemoryPlaceholderView(appState: appState)
-        }
-    }
-}
-
-private struct MemoryPlaceholderView: View {
-    @Bindable var appState: AppState
-
-    var body: some View {
-        ZStack {
-            SardineColors.paper.ignoresSafeArea()
-            VStack {
-                HStack {
-                    Button {
-                        appState.closeToHome()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                    }
-                    .buttonStyle(IconCircleButtonStyle())
-                    Spacer()
-                }
-                .padding(24)
-
-                MetroMapView(repository: appState.repository, highlightedRoutes: appState.memories.map(\.route))
-                    .padding(30)
-            }
+            MemoryView(appState: appState)
         }
     }
 }

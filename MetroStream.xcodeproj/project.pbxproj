@@ -17,6 +17,7 @@
 		763D395BB668FCECCE2852D1 /* MemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AC6CA2AA127BC4E8A3C2FC /* MemoryStore.swift */; };
 		7CA9B87EF2A4F8EBD0B11EBB /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FBD744B367EA4E69A24664 /* AppState.swift */; };
 		7FAE34309CED6F4F2158A4D0 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71A631D4FD7522569E7346D /* DesignSystem.swift */; };
+		84DE1C041844978395EE33A2 /* MemoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE3F976AAA400C87F0C7A1E /* MemoryView.swift */; };
 		8AF008CEBB224C1CA6A795D5 /* MetroRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94F5E874B8A179F070016C /* MetroRepository.swift */; };
 		8AFE58178023599014A2CE84 /* MetroModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F716D53FD88380D0EB517D5 /* MetroModels.swift */; };
 		9031D0EFFB1CBECEDDDA6576 /* MetroStreamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302662B89666EA449A09EF09 /* MetroStreamApp.swift */; };
@@ -48,6 +49,7 @@
 		B8864628ED260A9A3571406F /* StationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectionView.swift; sourceTree = "<group>"; };
 		C71A631D4FD7522569E7346D /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		C8D071B7A1BA6DB561E0778F /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		CCE3F976AAA400C87F0C7A1E /* MemoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryView.swift; sourceTree = "<group>"; };
 		DC662EF8D30E4A52A6ECEB17 /* MetroStreamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStreamTests.swift; sourceTree = "<group>"; };
 		F9AC6CA2AA127BC4E8A3C2FC /* MemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +128,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		C303EE8FBD9DFA51B705E1FE /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				CCE3F976AAA400C87F0C7A1E /* MemoryView.swift */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
 		CA063CA906BFD75E70E4A900 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +167,7 @@
 			children = (
 				DD0C7F31A1C65EB9057EDC4B /* Cabin */,
 				CA063CA906BFD75E70E4A900 /* Home */,
+				C303EE8FBD9DFA51B705E1FE /* Memory */,
 				08716E64B841C00A3301548B /* Shared */,
 				88B9690B008783F80FC00E3E /* StationSelection */,
 			);
@@ -252,6 +263,7 @@
 				1A15572FBB4EE4834E307D6A /* HomeView.swift in Sources */,
 				1F979DE8BDD9A5834BCDDF48 /* LocationService.swift in Sources */,
 				763D395BB668FCECCE2852D1 /* MemoryStore.swift in Sources */,
+				84DE1C041844978395EE33A2 /* MemoryView.swift in Sources */,
 				1E661EEAA3515612C068D125 /* MetroMapView.swift in Sources */,
 				8AFE58178023599014A2CE84 /* MetroModels.swift in Sources */,
 				8AF008CEBB224C1CA6A795D5 /* MetroRepository.swift in Sources */,
