@@ -158,9 +158,6 @@ private var stationOptions: [MetroStation] {
     return appState.repository.stations(onLineID: activeLineID)
 }
 
-private var selectedStation: MetroStation? {
-    appState.repository.station(id: selectedStationID)
-}
 ```
 
 - [ ] **Step 2: Replace body stack content**
@@ -279,7 +276,7 @@ private func selectLine(_ lineID: String) {
         selectedStationID = ""
         return
     }
-    selectStation(station)
+    selectedStationID = station.id
 }
 
 private func selectStationID(_ stationID: String) {
