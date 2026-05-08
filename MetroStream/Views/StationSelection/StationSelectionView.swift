@@ -181,9 +181,10 @@ struct StationSelectionView: View {
             showDistanceWarning = true
             let currentOptionIDs = Set(stationOptions.map(\.id))
             let committedStartID = appState.selectedStart?.id
-            let fallbackID = committedStartID.flatMap { currentOptionIDs.contains($0) ? $0 : nil }
+            selectedStationID = committedStartID.flatMap { currentOptionIDs.contains($0) ? $0 : nil }
                 ?? stationOptions.first(where: { nearbyStationIDs.contains($0.id) })?.id
-            selectedStationID = fallbackID ?? selectedStationID
+                ?? stationOptions.first?.id
+                ?? selectedStationID
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 showDistanceWarning = false
             }
