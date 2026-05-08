@@ -102,3 +102,53 @@ struct CabinEntry: Identifiable, Codable, Equatable, Hashable {
         self.isMine = isMine
     }
 }
+
+enum PublishError: Error, Equatable {
+    case limitReached
+    case empty
+}
+
+struct RideSession: Identifiable, Codable, Equatable {
+    let id: UUID
+    var route: RoutePlan
+    var startedAt: Date
+    var publishedEntries: [CabinEntry]
+
+    init(
+        id: UUID = UUID(),
+        route: RoutePlan,
+        startedAt: Date = Date(),
+        publishedEntries: [CabinEntry] = []
+    ) {
+        self.id = id
+        self.route = route
+        self.startedAt = startedAt
+        self.publishedEntries = publishedEntries
+    }
+
+    mutating func publish(_ entry: CabinEntry) throws {
+        guard publishedEntries.count < 3 else {
+            throw PublishError.limitReached
+        }
+        guard !entry.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !entry.drawing.isEmpty else {
+            throw PublishError.empty
+        }
+        var mine = entry
+        mine.isMine = true
+        publishedEntries.append(mine)
+    }
+}
+
+struct UserMemory: Identifiable, Codable, Equatable {
+    let id: UUID
+    var route: RoutePlan
+    var startedAt: Date
+    var entries: [CabinEntry]
+
+    init(id: UUID = UUID(), route: RoutePlan, startedAt: Date, entries: [CabinEntry]) {
+        self.id = id
+        self.route = route
+        self.startedAt = startedAt
+        self.entries = entries
+    }
+}

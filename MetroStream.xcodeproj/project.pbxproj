@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		579FF5B56F58C62FCABFB94D /* MetroStreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC662EF8D30E4A52A6ECEB17 /* MetroStreamTests.swift */; };
+		763D395BB668FCECCE2852D1 /* MemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AC6CA2AA127BC4E8A3C2FC /* MemoryStore.swift */; };
 		7FAE34309CED6F4F2158A4D0 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71A631D4FD7522569E7346D /* DesignSystem.swift */; };
 		8AF008CEBB224C1CA6A795D5 /* MetroRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94F5E874B8A179F070016C /* MetroRepository.swift */; };
 		8AFE58178023599014A2CE84 /* MetroModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F716D53FD88380D0EB517D5 /* MetroModels.swift */; };
@@ -32,6 +33,7 @@
 		9A94F5E874B8A179F070016C /* MetroRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroRepository.swift; sourceTree = "<group>"; };
 		C71A631D4FD7522569E7346D /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		DC662EF8D30E4A52A6ECEB17 /* MetroStreamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStreamTests.swift; sourceTree = "<group>"; };
+		F9AC6CA2AA127BC4E8A3C2FC /* MemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -83,6 +85,7 @@
 		98F8BD9879CC470732E8CDC4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				F9AC6CA2AA127BC4E8A3C2FC /* MemoryStore.swift */,
 				9A94F5E874B8A179F070016C /* MetroRepository.swift */,
 			);
 			path = Data;
@@ -187,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FAE34309CED6F4F2158A4D0 /* DesignSystem.swift in Sources */,
+				763D395BB668FCECCE2852D1 /* MemoryStore.swift in Sources */,
 				8AFE58178023599014A2CE84 /* MetroModels.swift in Sources */,
 				8AF008CEBB224C1CA6A795D5 /* MetroRepository.swift in Sources */,
 				9031D0EFFB1CBECEDDDA6576 /* MetroStreamApp.swift in Sources */,
