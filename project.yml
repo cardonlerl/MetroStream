@@ -17,7 +17,8 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.local.sardinecan
-        PRODUCT_NAME: 沙丁鱼罐头
+        PRODUCT_NAME: MetroStream
+        PRODUCT_MODULE_NAME: MetroStream
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: 沙丁鱼罐头
         INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: 用于推荐附近站点
@@ -36,3 +37,12 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.local.sardinecan.tests
         GENERATE_INFOPLIST_FILE: YES
+schemes:
+  MetroStream:
+    build:
+      targets:
+        MetroStream: all
+        MetroStreamTests: [test]
+    test:
+      targets:
+        - MetroStreamTests

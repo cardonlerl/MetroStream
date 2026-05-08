@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		579FF5B56F58C62FCABFB94D /* MetroStreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC662EF8D30E4A52A6ECEB17 /* MetroStreamTests.swift */; };
 		7FAE34309CED6F4F2158A4D0 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71A631D4FD7522569E7346D /* DesignSystem.swift */; };
+		8AF008CEBB224C1CA6A795D5 /* MetroRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94F5E874B8A179F070016C /* MetroRepository.swift */; };
+		8AFE58178023599014A2CE84 /* MetroModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F716D53FD88380D0EB517D5 /* MetroModels.swift */; };
 		9031D0EFFB1CBECEDDDA6576 /* MetroStreamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302662B89666EA449A09EF09 /* MetroStreamApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,8 +27,11 @@
 /* Begin PBXFileReference section */
 		29C7771E49AEBE3E2B9F30D9 /* MetroStream.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MetroStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		302662B89666EA449A09EF09 /* MetroStreamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStreamApp.swift; sourceTree = "<group>"; };
+		4F716D53FD88380D0EB517D5 /* MetroModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroModels.swift; sourceTree = "<group>"; };
 		9175340CB396E2853ED31012 /* MetroStreamTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MetroStreamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A94F5E874B8A179F070016C /* MetroRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroRepository.swift; sourceTree = "<group>"; };
 		C71A631D4FD7522569E7346D /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		DC662EF8D30E4A52A6ECEB17 /* MetroStreamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStreamTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -41,6 +47,8 @@
 			isa = PBXGroup;
 			children = (
 				302662B89666EA449A09EF09 /* MetroStreamApp.swift */,
+				98F8BD9879CC470732E8CDC4 /* Data */,
+				DE44F1BE25572F4F879EB2A1 /* Models */,
 				F6CA584059342DEFA1035639 /* Views */,
 			);
 			path = MetroStream;
@@ -49,6 +57,7 @@
 		2F3B8D48816917217FD66317 /* MetroStreamTests */ = {
 			isa = PBXGroup;
 			children = (
+				DC662EF8D30E4A52A6ECEB17 /* MetroStreamTests.swift */,
 			);
 			path = MetroStreamTests;
 			sourceTree = "<group>";
@@ -69,6 +78,22 @@
 				2F3B8D48816917217FD66317 /* MetroStreamTests */,
 				63FD137746958583CAB10C34 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		98F8BD9879CC470732E8CDC4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9A94F5E874B8A179F070016C /* MetroRepository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		DE44F1BE25572F4F879EB2A1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4F716D53FD88380D0EB517D5 /* MetroModels.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F6CA584059342DEFA1035639 /* Views */ = {
@@ -153,6 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				579FF5B56F58C62FCABFB94D /* MetroStreamTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +187,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FAE34309CED6F4F2158A4D0 /* DesignSystem.swift in Sources */,
+				8AFE58178023599014A2CE84 /* MetroModels.swift in Sources */,
+				8AF008CEBB224C1CA6A795D5 /* MetroRepository.swift in Sources */,
 				9031D0EFFB1CBECEDDDA6576 /* MetroStreamApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,7 +219,8 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.local.sardinecan;
-				PRODUCT_NAME = "沙丁鱼罐头";
+				PRODUCT_MODULE_NAME = MetroStream;
+				PRODUCT_NAME = MetroStream;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -352,7 +381,8 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.local.sardinecan;
-				PRODUCT_NAME = "沙丁鱼罐头";
+				PRODUCT_MODULE_NAME = MetroStream;
+				PRODUCT_NAME = MetroStream;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
