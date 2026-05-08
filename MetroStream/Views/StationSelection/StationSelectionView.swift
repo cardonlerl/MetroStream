@@ -3,7 +3,8 @@ import SwiftUI
 struct StationSelectionView: View {
     @Bindable var appState: AppState
     @Bindable var locationService: LocationService
-    @State private var query = ""
+    @State private var selectedLineID = ""
+    @State private var selectedStationID = ""
     @State private var selectingDestination = false
     @State private var showDistanceWarning = false
 
@@ -11,12 +12,23 @@ struct StationSelectionView: View {
         locationService.nearbyStations(repository: appState.repository)
     }
 
-    private var displayedStations: [MetroStation] {
-        let source = selectingDestination
-            ? appState.repository.stations
-            : nearbyStations.map(\.station)
-        guard !query.isEmpty else { return source }
-        return source.filter { $0.name.localizedStandardContains(query) }
+    private var nearbyStationIDs: Set<String> {
+        Set(nearbyStations.map(\.station.id))
+    }
+
+    private var lineOptions: [MetroLine] {
+        if selectingDestination {
+            return appState.repository.lines
+        }
+        let nearbyIDs = nearbyStationIDs
+        let nearbyLines = appState.repository.lines(containingAnyStationIDs: nearbyIDs)
+        return nearbyLines.isEmpty ? appState.repository.lines : nearbyLines
+    }
+
+    private var stationOptions: [MetroStation] {
+        let activeLineID = selectedLineID.isEmpty ? lineOptions.first?.id : selectedLineID
+        guard let activeLineID else { return [] }
+        return appState.repository.stations(onLineID: activeLineID)
     }
 
     var body: some View {
@@ -26,8 +38,7 @@ struct StationSelectionView: View {
             VStack(spacing: 18) {
                 topBar
                 selectedStrip
-                searchField
-                stationList
+                wheelSelector
                 enterButton
             }
             .padding(.horizontal, 22)
@@ -35,6 +46,15 @@ struct StationSelectionView: View {
         }
         .task {
             locationService.requestAuthorization()
+            synchronizeWheelSelection()
+        }
+        .onChange(of: selectingDestination) { _, _ in
+            synchronizeWheelSelection()
+        }
+        .onChange(of: nearbyStations) { _, _ in
+            if !selectingDestination {
+                synchronizeWheelSelection()
+            }
         }
     }
 
@@ -51,13 +71,13 @@ struct StationSelectionView: View {
 
             Button("出发站") {
                 selectingDestination = false
-                query = ""
+                synchronizeWheelSelection()
             }
             .buttonStyle(TextChipStyle(isSelected: !selectingDestination))
 
             Button("到达站") {
                 selectingDestination = true
-                query = ""
+                synchronizeWheelSelection()
             }
             .buttonStyle(TextChipStyle(isSelected: selectingDestination))
         }
@@ -79,46 +99,22 @@ struct StationSelectionView: View {
         }
     }
 
-    private var searchField: some View {
-        TextField("站名", text: $query)
-            .textInputAutocapitalization(.never)
-            .autocorrectionDisabled()
-            .font(.system(size: 17, weight: .regular, design: .serif))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(SardineColors.paperRaised)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(SardineColors.hairline, lineWidth: 1))
-    }
-
-    private var stationList: some View {
-        ScrollView {
-            LazyVStack(spacing: 10) {
-                ForEach(displayedStations) { station in
-                    Button {
-                        choose(station)
-                    } label: {
-                        HStack {
-                            Text(station.name)
-                                .font(.system(size: 17, weight: .regular, design: .serif))
-                            Spacer()
-                            if !selectingDestination, let nearby = nearbyStations.first(where: { $0.station.id == station.id }) {
-                                Text(distanceText(nearby.distanceMeters))
-                                    .font(.system(size: 13, design: .serif))
-                                    .foregroundStyle(SardineColors.mutedInk)
-                            }
-                        }
-                        .foregroundStyle(SardineColors.ink)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 14)
-                        .background(SardineColors.paperRaised)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(SardineColors.hairline, lineWidth: 1))
-                    }
-                    .buttonStyle(.plain)
-                }
+    private var wheelSelector: some View {
+        WheelStationSelector(
+            lineOptions: lineOptions,
+            stationOptions: stationOptions,
+            selectedLineID: Binding(
+                get: { selectedLineID },
+                set: { selectLine($0) }
+            ),
+            selectedStationID: Binding(
+                get: { selectedStationID },
+                set: { selectStationID($0) }
+            ),
+            stationIsEnabled: { station in
+                selectingDestination || nearbyStationIDs.contains(station.id)
             }
-        }
+        )
         .overlay(alignment: .bottom) {
             if showDistanceWarning {
                 Text("你还没到站")
@@ -129,7 +125,7 @@ struct StationSelectionView: View {
                     .background(SardineColors.paperRaised)
                     .clipShape(Capsule())
                     .shadow(color: SardineColors.softShadow, radius: 10, y: 4)
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 10)
             }
         }
     }
@@ -143,25 +139,56 @@ struct StationSelectionView: View {
         .opacity(appState.currentRoute == nil ? 0.35 : 1)
     }
 
-    private func choose(_ station: MetroStation) {
+    private func synchronizeWheelSelection() {
+        let currentStation = selectingDestination ? appState.selectedDestination : appState.selectedStart
+        let fallbackLine = currentStation.flatMap(appState.repository.firstLine(containing:)) ?? lineOptions.first
+
+        selectedLineID = fallbackLine?.id ?? ""
+
+        let fallbackStation = currentStation.flatMap { station in
+            station.lineIDs.contains(selectedLineID) ? station : nil
+        } ?? stationOptions.first { station in
+            selectingDestination || nearbyStationIDs.contains(station.id)
+        } ?? stationOptions.first
+
+        selectedStationID = fallbackStation?.id ?? ""
+    }
+
+    private func selectLine(_ lineID: String) {
+        selectedLineID = lineID
+        let stations = appState.repository.stations(onLineID: lineID)
+        guard let station = stations.first(where: { station in
+            selectingDestination || nearbyStationIDs.contains(station.id)
+        }) ?? stations.first else {
+            selectedStationID = ""
+            return
+        }
+        selectedStationID = station.id
+    }
+
+    private func selectStationID(_ stationID: String) {
+        guard let station = appState.repository.station(id: stationID) else { return }
+        selectStation(station)
+    }
+
+    private func selectStation(_ station: MetroStation) {
         if selectingDestination {
             appState.selectDestination(station)
-        } else if nearbyStations.contains(where: { $0.station.id == station.id }) {
+        } else if nearbyStationIDs.contains(station.id) {
             appState.selectStart(station)
             selectingDestination = true
         } else {
             showDistanceWarning = true
+            selectedStationID = appState.selectedStart?.id
+                ?? stationOptions.first(where: { nearbyStationIDs.contains($0.id) })?.id
+                ?? selectedStationID
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 showDistanceWarning = false
             }
+            return
         }
-        query = ""
-    }
 
-    private func distanceText(_ meters: Double) -> String {
-        meters < 1_000
-            ? "\(Int(meters))m"
-            : String(format: "%.1fkm", meters / 1_000)
+        selectedStationID = station.id
     }
 }
 
@@ -177,5 +204,69 @@ private struct StationPill: View {
             .background(SardineColors.paperRaised)
             .clipShape(Capsule())
             .overlay(Capsule().stroke(SardineColors.hairline, lineWidth: 1))
+    }
+}
+
+private struct WheelStationSelector: View {
+    let lineOptions: [MetroLine]
+    let stationOptions: [MetroStation]
+    @Binding var selectedLineID: String
+    @Binding var selectedStationID: String
+    var stationIsEnabled: (MetroStation) -> Bool
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 16)
+                .fill(SardineColors.paperRaised)
+                .overlay(RoundedRectangle(cornerRadius: 16).stroke(SardineColors.hairline, lineWidth: 1))
+
+            Rectangle()
+                .fill(SardineColors.ink.opacity(0.07))
+                .frame(height: 52)
+                .overlay(Rectangle().stroke(SardineColors.hairline.opacity(0.65), lineWidth: 1))
+
+            HStack(spacing: 0) {
+                Picker("线路", selection: $selectedLineID) {
+                    ForEach(lineOptions) { line in
+                        Text(line.name)
+                            .font(.system(size: 18, weight: .medium, design: .serif))
+                            .tag(line.id)
+                    }
+                }
+                .pickerStyle(.wheel)
+                .frame(maxWidth: .infinity)
+                .clipped()
+
+                Rectangle()
+                    .fill(SardineColors.hairline)
+                    .frame(width: 1, height: 170)
+
+                Picker("站点", selection: $selectedStationID) {
+                    ForEach(stationOptions) { station in
+                        Text(station.name)
+                            .font(.system(size: 22, weight: .regular, design: .serif))
+                            .foregroundStyle(stationIsEnabled(station) ? SardineColors.ink : SardineColors.mutedInk.opacity(0.48))
+                            .tag(station.id)
+                    }
+                }
+                .pickerStyle(.wheel)
+                .frame(maxWidth: .infinity)
+                .clipped()
+            }
+            .padding(.horizontal, 8)
+        }
+        .frame(height: 252)
+        .mask(
+            LinearGradient(
+                stops: [
+                    .init(color: .clear, location: 0),
+                    .init(color: .black, location: 0.18),
+                    .init(color: .black, location: 0.82),
+                    .init(color: .clear, location: 1)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
     }
 }
