@@ -276,7 +276,7 @@ private func selectLine(_ lineID: String) {
         selectedStationID = ""
         return
     }
-    selectedStationID = station.id
+    selectStation(station)
 }
 
 private func selectStationID(_ stationID: String) {
@@ -292,7 +292,9 @@ private func selectStation(_ station: MetroStation) {
         selectingDestination = true
     } else {
         showDistanceWarning = true
-        selectedStationID = appState.selectedStart?.id
+        let currentOptionIDs = Set(stationOptions.map(\.id))
+        let committedStartID = appState.selectedStart?.id
+        selectedStationID = committedStartID.flatMap { currentOptionIDs.contains($0) ? $0 : nil }
             ?? stationOptions.first(where: { nearbyStationIDs.contains($0.id) })?.id
             ?? selectedStationID
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
