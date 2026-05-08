@@ -20,6 +20,21 @@ struct MetroRepository {
         stations.first { $0.id == id }
     }
 
+    func stations(onLineID lineID: String) -> [MetroStation] {
+        guard let line = line(id: lineID) else { return [] }
+        return line.stationIDs.compactMap(station(id:))
+    }
+
+    func lines(containingAnyStationIDs stationIDs: Set<String>) -> [MetroLine] {
+        lines.filter { line in
+            line.stationIDs.contains { stationIDs.contains($0) }
+        }
+    }
+
+    func firstLine(containing station: MetroStation) -> MetroLine? {
+        station.lineIDs.compactMap(line(id:)).first
+    }
+
     func nearbyStations(latitude: Double, longitude: Double, radiusMeters: Double) -> [LocatedStation] {
         stations
             .map { station in
