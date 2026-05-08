@@ -10,6 +10,9 @@
 		1A15572FBB4EE4834E307D6A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B69FC7C61080582A5118693 /* HomeView.swift */; };
 		1E661EEAA3515612C068D125 /* MetroMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D47C2F56A1AC598E8606E /* MetroMapView.swift */; };
 		1F979DE8BDD9A5834BCDDF48 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D071B7A1BA6DB561E0778F /* LocationService.swift */; };
+		2399FD2DB0BAF4D5C9E317E3 /* DrawingPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081B3F0E86E18FA527F4415 /* DrawingPad.swift */; };
+		332D1592BD3A59EF324B0E53 /* PublishSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7176C9A7ED5B83B8E928FA /* PublishSheet.swift */; };
+		3CC3915428B332701E409600 /* CabinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADCB2046725A3BE392D4785 /* CabinView.swift */; };
 		579FF5B56F58C62FCABFB94D /* MetroStreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC662EF8D30E4A52A6ECEB17 /* MetroStreamTests.swift */; };
 		763D395BB668FCECCE2852D1 /* MemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AC6CA2AA127BC4E8A3C2FC /* MemoryStore.swift */; };
 		7CA9B87EF2A4F8EBD0B11EBB /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FBD744B367EA4E69A24664 /* AppState.swift */; };
@@ -35,10 +38,13 @@
 		29C7771E49AEBE3E2B9F30D9 /* MetroStream.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MetroStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		302662B89666EA449A09EF09 /* MetroStreamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStreamApp.swift; sourceTree = "<group>"; };
 		4F716D53FD88380D0EB517D5 /* MetroModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroModels.swift; sourceTree = "<group>"; };
+		7081B3F0E86E18FA527F4415 /* DrawingPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPad.swift; sourceTree = "<group>"; };
 		7B8D47C2F56A1AC598E8606E /* MetroMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapView.swift; sourceTree = "<group>"; };
 		9175340CB396E2853ED31012 /* MetroStreamTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MetroStreamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A94F5E874B8A179F070016C /* MetroRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroRepository.swift; sourceTree = "<group>"; };
 		9B69FC7C61080582A5118693 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AA7176C9A7ED5B83B8E928FA /* PublishSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSheet.swift; sourceTree = "<group>"; };
+		AADCB2046725A3BE392D4785 /* CabinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinView.swift; sourceTree = "<group>"; };
 		B8864628ED260A9A3571406F /* StationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectionView.swift; sourceTree = "<group>"; };
 		C71A631D4FD7522569E7346D /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		C8D071B7A1BA6DB561E0778F /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
@@ -128,6 +134,16 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		DD0C7F31A1C65EB9057EDC4B /* Cabin */ = {
+			isa = PBXGroup;
+			children = (
+				AADCB2046725A3BE392D4785 /* CabinView.swift */,
+				7081B3F0E86E18FA527F4415 /* DrawingPad.swift */,
+				AA7176C9A7ED5B83B8E928FA /* PublishSheet.swift */,
+			);
+			path = Cabin;
+			sourceTree = "<group>";
+		};
 		DE44F1BE25572F4F879EB2A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +155,7 @@
 		F6CA584059342DEFA1035639 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DD0C7F31A1C65EB9057EDC4B /* Cabin */,
 				CA063CA906BFD75E70E4A900 /* Home */,
 				08716E64B841C00A3301548B /* Shared */,
 				88B9690B008783F80FC00E3E /* StationSelection */,
@@ -229,7 +246,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CA9B87EF2A4F8EBD0B11EBB /* AppState.swift in Sources */,
+				3CC3915428B332701E409600 /* CabinView.swift in Sources */,
 				7FAE34309CED6F4F2158A4D0 /* DesignSystem.swift in Sources */,
+				2399FD2DB0BAF4D5C9E317E3 /* DrawingPad.swift in Sources */,
 				1A15572FBB4EE4834E307D6A /* HomeView.swift in Sources */,
 				1F979DE8BDD9A5834BCDDF48 /* LocationService.swift in Sources */,
 				763D395BB668FCECCE2852D1 /* MemoryStore.swift in Sources */,
@@ -237,6 +256,7 @@
 				8AFE58178023599014A2CE84 /* MetroModels.swift in Sources */,
 				8AF008CEBB224C1CA6A795D5 /* MetroRepository.swift in Sources */,
 				9031D0EFFB1CBECEDDDA6576 /* MetroStreamApp.swift in Sources */,
+				332D1592BD3A59EF324B0E53 /* PublishSheet.swift in Sources */,
 				93DD3C0FDFA9B5BDA0C10425 /* StationSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

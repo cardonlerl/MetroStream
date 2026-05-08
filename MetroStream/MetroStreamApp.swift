@@ -20,33 +20,9 @@ struct ContentBootstrapView: View {
         case .stationSelection:
             StationSelectionView(appState: appState, locationService: locationService)
         case .cabin:
-            CabinPlaceholderView(appState: appState)
+            CabinView(appState: appState)
         case .memories:
             MemoryPlaceholderView(appState: appState)
-        }
-    }
-}
-
-private struct CabinPlaceholderView: View {
-    @Bindable var appState: AppState
-
-    var body: some View {
-        ZStack {
-            SardineColors.paper.ignoresSafeArea()
-            VStack {
-                HStack {
-                    Text(appState.currentRoute?.lineName ?? "")
-                        .font(.system(size: 15, design: .serif))
-                    Spacer()
-                    Button("下车") {
-                        appState.endRide()
-                    }
-                    .font(.system(size: 13, design: .serif))
-                    .foregroundStyle(SardineColors.mutedInk)
-                }
-                .padding(24)
-                Spacer()
-            }
         }
     }
 }
