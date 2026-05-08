@@ -296,6 +296,7 @@ private func selectStation(_ station: MetroStation) {
         let committedStartID = appState.selectedStart?.id
         selectedStationID = committedStartID.flatMap { currentOptionIDs.contains($0) ? $0 : nil }
             ?? stationOptions.first(where: { nearbyStationIDs.contains($0.id) })?.id
+            ?? stationOptions.first?.id
             ?? selectedStationID
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             showDistanceWarning = false
