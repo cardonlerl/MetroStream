@@ -158,9 +158,6 @@ private var stationOptions: [MetroStation] {
     return appState.repository.stations(onLineID: activeLineID)
 }
 
-private var selectedStation: MetroStation? {
-    appState.repository.station(id: selectedStationID)
-}
 ```
 
 - [ ] **Step 2: Replace body stack content**
@@ -257,7 +254,11 @@ Replace `choose(_:)` with these methods:
 ```swift
 private func synchronizeWheelSelection() {
     let currentStation = selectingDestination ? appState.selectedDestination : appState.selectedStart
-    let fallbackLine = currentStation.flatMap(appState.repository.firstLine(containing:)) ?? lineOptions.first
+    let options = lineOptions
+    let candidateLine = currentStation.flatMap(appState.repository.firstLine(containing:))
+    let fallbackLine = candidateLine.flatMap { candidate in
+        options.contains(where: { $0.id == candidate.id }) ? candidate : nil
+    } ?? options.first
 
     selectedLineID = fallbackLine?.id ?? ""
 
@@ -295,8 +296,11 @@ private func selectStation(_ station: MetroStation) {
         selectingDestination = true
     } else {
         showDistanceWarning = true
-        selectedStationID = appState.selectedStart?.id
+        let currentOptionIDs = Set(stationOptions.map(\.id))
+        let committedStartID = appState.selectedStart?.id
+        selectedStationID = committedStartID.flatMap { currentOptionIDs.contains($0) ? $0 : nil }
             ?? stationOptions.first(where: { nearbyStationIDs.contains($0.id) })?.id
+            ?? stationOptions.first?.id
             ?? selectedStationID
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             showDistanceWarning = false

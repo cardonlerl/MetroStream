@@ -13,6 +13,48 @@ final class MetroRepositoryTests: XCTestCase {
         XCTAssertNotNil(repository.station(named: "徐家汇"))
     }
 
+    func testStationsOnLineAreReturnedInLineOrder() throws {
+        let repository = MetroRepository()
+
+        let stations = repository.stations(onLineID: "line2")
+
+        XCTAssertEqual(stations.map(\.name), [
+            "娄山关路",
+            "中山公园",
+            "静安寺",
+            "南京西路",
+            "人民广场",
+            "南京东路",
+            "陆家嘴",
+            "世纪大道",
+            "龙阳路"
+        ])
+    }
+
+    func testLinesContainingStationsPreserveRepositoryOrder() throws {
+        let repository = MetroRepository()
+        let peopleSquare = try XCTUnwrap(repository.station(named: "人民广场"))
+        let jingAnTemple = try XCTUnwrap(repository.station(named: "静安寺"))
+
+        let lines = repository.lines(containingAnyStationIDs: Set([peopleSquare.id, jingAnTemple.id]))
+
+        XCTAssertEqual(lines.map(\.name), ["1号线", "2号线", "7号线", "8号线"])
+    }
+
+    func testFirstLineReturnsNilWhenStationHasNoLine() {
+        let repository = MetroRepository()
+        let station = MetroStation(
+            id: "temporary",
+            name: "临时站",
+            latitude: 0,
+            longitude: 0,
+            lineIDs: [],
+            mapPoint: MapPoint(x: 0, y: 0)
+        )
+
+        XCTAssertNil(repository.firstLine(containing: station))
+    }
+
     func testNearbyStationsOnlyIncludesStationsWithinTwoKilometers() throws {
         let repository = MetroRepository()
         let peopleSquare = try XCTUnwrap(repository.station(named: "人民广场"))
