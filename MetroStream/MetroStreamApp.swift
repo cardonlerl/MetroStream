@@ -16,7 +16,7 @@ struct ContentBootstrapView: View {
     var body: some View {
         switch appState.screen {
         case .home:
-            HomeView(appState: appState)
+            HomeView(appState: appState, locationService: locationService)
         case .stationSelection:
             StationSelectionView(appState: appState, locationService: locationService)
         case .cabin:

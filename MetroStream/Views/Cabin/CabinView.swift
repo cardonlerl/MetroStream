@@ -1,12 +1,14 @@
+import CoreMotion
 import SwiftUI
+import UIKit
 
 struct CabinView: View {
     @Bindable var appState: AppState
-    @State private var cabinIndex = 0
     @State private var showingPublisher = false
     @State private var showingExitConfirm = false
     @State private var showingClosed = false
     @State private var remainingSeconds: Int
+    @StateObject private var motionSensor = CabinMotionSensor()
 
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -18,11 +20,12 @@ struct CabinView: View {
 
     var body: some View {
         ZStack {
-            SardineColors.paper.ignoresSafeArea()
+            CabinScene(motionVector: motionSensor.motionVector)
+                .ignoresSafeArea()
 
             VStack(spacing: 0) {
                 header
-                cabinPager
+                Spacer()
                 publishButton
             }
             .blur(radius: showingClosed ? 3 : 0)
@@ -59,6 +62,12 @@ struct CabinView: View {
                 closeCabin()
             }
         }
+        .onAppear {
+            motionSensor.start()
+        }
+        .onDisappear {
+            motionSensor.stop()
+        }
     }
 
     private var header: some View {
@@ -91,20 +100,6 @@ struct CabinView: View {
         .padding(.bottom, 10)
     }
 
-    private var cabinPager: some View {
-        TabView(selection: $cabinIndex) {
-            ForEach(0..<3, id: \.self) { index in
-                CabinScene(
-                    entries: entries(for: index),
-                    index: index
-                )
-                .tag(index)
-                .padding(.horizontal, 18)
-            }
-        }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-    }
-
     private var publishButton: some View {
         Button {
             showingPublisher = true
@@ -126,12 +121,6 @@ struct CabinView: View {
         return "\(minutes):" + String(format: "%02d", seconds)
     }
 
-    private func entries(for index: Int) -> [CabinEntry] {
-        guard let route = appState.currentRoute else { return [] }
-        let mine = appState.currentRide?.publishedEntries ?? []
-        return appState.repository.seedEntries(for: route, cabinIndex: index) + mine
-    }
-
     private func closeCabin() {
         showingClosed = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -141,139 +130,144 @@ struct CabinView: View {
 }
 
 private struct CabinScene: View {
-    let entries: [CabinEntry]
-    let index: Int
+    let motionVector: CGSize
+    private let backgroundImage = CabinBackgroundResource.image(in: .main)
 
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                RoundedRectangle(cornerRadius: 18)
-                    .fill(SardineColors.paper.opacity(0.1))
+                if let backgroundImage {
+                    let imageAspectRatio = backgroundImage.size.width / max(backgroundImage.size.height, 1)
+                    let motionOffset = CabinSceneMetrics.motionOffset(
+                        forMotionVector: motionVector,
+                        frameSize: proxy.size,
+                        imageAspectRatio: imageAspectRatio
+                    )
 
-                ForEach(0..<min(7, max(3, entries.count + 1)), id: \.self) { item in
-                    PersonShape()
-                        .stroke(SardineColors.ink.opacity(0.18 + Double(item % 3) * 0.08), lineWidth: 1.2)
-                        .frame(width: 34 + CGFloat(item % 2) * 8, height: 92 + CGFloat(item % 3) * 12)
-                        .position(personPosition(item: item, size: proxy.size))
+                    Image(uiImage: backgroundImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: proxy.size.width, height: proxy.size.height)
+                        .scaleEffect(CabinSceneMetrics.backgroundScale)
+                        .offset(motionOffset)
+                        .accessibilityHidden(true)
+                } else {
+                    SardineColors.paper
                 }
+            }
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .clipped()
+        }
+        .background(SardineColors.paper)
+    }
+}
 
-                ForEach(Array(entries.prefix(6).enumerated()), id: \.element.id) { offset, entry in
-                    EntryBubble(entry: entry)
-                        .frame(width: bubbleWidth(entry))
-                        .position(bubblePosition(offset: offset, size: proxy.size))
-                        .floating(delay: Double(offset) * 0.45)
-                }
+enum CabinBackgroundResource {
+    private static let name = "CabinBackground"
+
+    static func image(in bundle: Bundle) -> UIImage? {
+        guard let url = bundle.url(forResource: name, withExtension: "png") else { return nil }
+        return UIImage(contentsOfFile: url.path)
+    }
+}
+
+struct CabinSceneMetrics {
+    static let passengerCount = 0
+    static let backgroundVisibleFraction: CGFloat = 0.95
+    static let backgroundScale: CGFloat = 1 / backgroundVisibleFraction
+    static let sceneCornerRadius: CGFloat = 0
+    static let sceneHorizontalPadding: CGFloat = 0
+    static let motionFullTravelRadians: CGFloat = 1
+
+    static func visibleBubbleCount(forEntryCount _: Int) -> Int {
+        0
+    }
+
+    static func motionVector(forRoll roll: Double, pitch: Double) -> CGSize {
+        CGSize(
+            width: clampUnit(CGFloat(roll) / motionFullTravelRadians),
+            height: clampUnit(CGFloat(-pitch) / motionFullTravelRadians)
+        )
+    }
+
+    static func motionOffset(
+        forRoll roll: Double,
+        pitch: Double,
+        frameSize: CGSize,
+        imageAspectRatio: CGFloat
+    ) -> CGSize {
+        motionOffset(
+            forMotionVector: motionVector(forRoll: roll, pitch: pitch),
+            frameSize: frameSize,
+            imageAspectRatio: imageAspectRatio
+        )
+    }
+
+    static func motionOffset(
+        forMotionVector motionVector: CGSize,
+        frameSize: CGSize,
+        imageAspectRatio: CGFloat
+    ) -> CGSize {
+        let limit = motionOffsetLimit(in: frameSize, imageAspectRatio: imageAspectRatio)
+        return CGSize(
+            width: clampUnit(motionVector.width) * limit.width,
+            height: clampUnit(motionVector.height) * limit.height
+        )
+    }
+
+    static func motionOffsetLimit(in frameSize: CGSize, imageAspectRatio: CGFloat) -> CGSize {
+        let fillSize = scaledToFillSize(frameSize: frameSize, imageAspectRatio: imageAspectRatio)
+        let scaledSize = CGSize(
+            width: fillSize.width * backgroundScale,
+            height: fillSize.height * backgroundScale
+        )
+        return CGSize(
+            width: max(0, (scaledSize.width - frameSize.width) / 2),
+            height: max(0, (scaledSize.height - frameSize.height) / 2)
+        )
+    }
+
+    private static func scaledToFillSize(frameSize: CGSize, imageAspectRatio: CGFloat) -> CGSize {
+        guard frameSize.width > 0, frameSize.height > 0, imageAspectRatio > 0 else {
+            return .zero
+        }
+
+        let frameAspectRatio = frameSize.width / frameSize.height
+        if imageAspectRatio > frameAspectRatio {
+            return CGSize(width: frameSize.height * imageAspectRatio, height: frameSize.height)
+        } else {
+            return CGSize(width: frameSize.width, height: frameSize.width / imageAspectRatio)
+        }
+    }
+
+    private static func clampUnit(_ value: CGFloat) -> CGFloat {
+        min(max(value, -1), 1)
+    }
+}
+
+@MainActor
+private final class CabinMotionSensor: ObservableObject {
+    @Published var motionVector: CGSize = .zero
+
+    private let manager = CMMotionManager()
+
+    func start() {
+        guard manager.isDeviceMotionAvailable, !manager.isDeviceMotionActive else { return }
+        manager.deviceMotionUpdateInterval = 1.0 / 30.0
+        manager.startDeviceMotionUpdates(to: .main) { [weak self] motion, _ in
+            guard let motion else { return }
+            let motionVector = CabinSceneMetrics.motionVector(
+                forRoll: motion.attitude.roll,
+                pitch: motion.attitude.pitch
+            )
+            MainActor.assumeIsolated {
+                self?.motionVector = motionVector
             }
         }
     }
 
-    private func personPosition(item: Int, size: CGSize) -> CGPoint {
-        let xSeeds: [CGFloat] = [0.16, 0.38, 0.72, 0.56, 0.84, 0.26, 0.66]
-        let ySeeds: [CGFloat] = [0.72, 0.63, 0.76, 0.82, 0.58, 0.86, 0.68]
-        return CGPoint(x: size.width * xSeeds[item % xSeeds.count], y: size.height * ySeeds[item % ySeeds.count])
-    }
-
-    private func bubblePosition(offset: Int, size: CGSize) -> CGPoint {
-        let xSeeds: [CGFloat] = [0.35, 0.66, 0.24, 0.76, 0.50, 0.18]
-        let ySeeds: [CGFloat] = [0.24, 0.34, 0.47, 0.55, 0.16, 0.64]
-        return CGPoint(x: size.width * xSeeds[offset % xSeeds.count], y: size.height * ySeeds[offset % ySeeds.count])
-    }
-
-    private func bubbleWidth(_ entry: CabinEntry) -> CGFloat {
-        switch entry.kind {
-        case .text:
-            return 150
-        case .drawing:
-            return 132
-        case .music:
-            return 148
-        }
-    }
-}
-
-private struct PersonShape: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let midX = rect.midX
-        path.addEllipse(in: CGRect(x: midX - 8, y: rect.minY, width: 16, height: 18))
-        path.move(to: CGPoint(x: midX, y: rect.minY + 19))
-        path.addQuadCurve(to: CGPoint(x: midX - 10, y: rect.maxY - 22), control: CGPoint(x: rect.minX + 3, y: rect.midY))
-        path.move(to: CGPoint(x: midX, y: rect.minY + 19))
-        path.addQuadCurve(to: CGPoint(x: midX + 12, y: rect.maxY - 25), control: CGPoint(x: rect.maxX - 3, y: rect.midY + 6))
-        path.move(to: CGPoint(x: midX - 4, y: rect.midY))
-        path.addLine(to: CGPoint(x: rect.minX + 2, y: rect.midY + 22))
-        path.move(to: CGPoint(x: midX + 5, y: rect.midY + 4))
-        path.addLine(to: CGPoint(x: rect.maxX - 3, y: rect.midY + 24))
-        return path
-    }
-}
-
-private struct EntryBubble: View {
-    let entry: CabinEntry
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            switch entry.kind {
-            case .text:
-                Text(entry.text)
-                    .font(.system(size: 14, design: .serif))
-            case .drawing:
-                MiniDrawing(strokes: entry.drawing)
-                    .frame(height: 70)
-            case .music:
-                Text("《\(entry.songTitle ?? "")》")
-                    .font(.system(size: 13, weight: .medium, design: .serif))
-                Text(entry.text)
-                    .font(.system(size: 12, design: .serif))
-            }
-        }
-        .foregroundStyle(entry.kind == .music ? SardineColors.paperRaised : SardineColors.ink)
-        .padding(10)
-        .background(entry.kind == .music ? SardineColors.ink.opacity(0.82) : SardineColors.paperRaised)
-        .clipShape(RoundedRectangle(cornerRadius: 6))
-        .overlay(RoundedRectangle(cornerRadius: 6).stroke(SardineColors.hairline.opacity(entry.kind == .music ? 0 : 1), lineWidth: 1))
-        .shadow(color: SardineColors.softShadow, radius: 8, y: 4)
-    }
-}
-
-private struct MiniDrawing: View {
-    let strokes: [DrawingStroke]
-
-    var body: some View {
-        Canvas { context, size in
-            for stroke in strokes {
-                var path = Path()
-                for (index, point) in stroke.points.enumerated() {
-                    let cgPoint = CGPoint(x: size.width * point.x, y: size.height * point.y)
-                    if index == 0 {
-                        path.move(to: cgPoint)
-                    } else {
-                        path.addLine(to: cgPoint)
-                    }
-                }
-                context.stroke(path, with: .color(SardineColors.ink.opacity(0.75)), style: StrokeStyle(lineWidth: stroke.width, lineCap: .round, lineJoin: .round))
-            }
-        }
-        .background(SardineColors.paperRaised)
-    }
-}
-
-private struct FloatingModifier: ViewModifier {
-    let delay: Double
-    @State private var floating = false
-
-    func body(content: Content) -> some View {
-        content
-            .offset(y: floating ? -4 : 4)
-            .animation(.easeInOut(duration: 2.8).repeatForever(autoreverses: true).delay(delay), value: floating)
-            .onAppear {
-                floating = true
-            }
-    }
-}
-
-private extension View {
-    func floating(delay: Double) -> some View {
-        modifier(FloatingModifier(delay: delay))
+    func stop() {
+        manager.stopDeviceMotionUpdates()
+        motionVector = .zero
     }
 }

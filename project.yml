@@ -14,6 +14,8 @@ targets:
     platform: iOS
     sources:
       - MetroStream
+    resources:
+      - MetroStream/Resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.local.sardinecan

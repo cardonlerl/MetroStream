@@ -1,5 +1,9 @@
 import SwiftUI
 
+enum DrawingPadMetrics {
+    static let canvasHeight: CGFloat = 260
+}
+
 struct DrawingPad: View {
     @Binding var strokes: [DrawingStroke]
     @State private var currentStroke: DrawingStroke?
@@ -51,7 +55,7 @@ struct DrawingPad: View {
                         }
                 )
             }
-            .frame(height: 160)
+            .frame(height: DrawingPadMetrics.canvasHeight)
             .background(SardineColors.paperRaised)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(SardineColors.hairline, lineWidth: 1))

@@ -22,6 +22,8 @@
 		8AFE58178023599014A2CE84 /* MetroModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F716D53FD88380D0EB517D5 /* MetroModels.swift */; };
 		9031D0EFFB1CBECEDDDA6576 /* MetroStreamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302662B89666EA449A09EF09 /* MetroStreamApp.swift */; };
 		93DD3C0FDFA9B5BDA0C10425 /* StationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8864628ED260A9A3571406F /* StationSelectionView.swift */; };
+		B1C0A002B1C0A002B1C0A002 /* CabinBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B1C0A001B1C0A001B1C0A001 /* CabinBackground.png */; };
+		D4A1F001D4A1F001D4A1F001 /* DepartureBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A1F000D4A1F000D4A1F000 /* DepartureBackground.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		12FBD744B367EA4E69A24664 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		29C7771E49AEBE3E2B9F30D9 /* MetroStream.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MetroStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29C7771E49AEBE3E2B9F30D9 /* MetroStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetroStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		302662B89666EA449A09EF09 /* MetroStreamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStreamApp.swift; sourceTree = "<group>"; };
 		4F716D53FD88380D0EB517D5 /* MetroModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroModels.swift; sourceTree = "<group>"; };
 		7081B3F0E86E18FA527F4415 /* DrawingPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPad.swift; sourceTree = "<group>"; };
@@ -46,10 +48,12 @@
 		9B69FC7C61080582A5118693 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AA7176C9A7ED5B83B8E928FA /* PublishSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishSheet.swift; sourceTree = "<group>"; };
 		AADCB2046725A3BE392D4785 /* CabinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinView.swift; sourceTree = "<group>"; };
+		B1C0A001B1C0A001B1C0A001 /* CabinBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CabinBackground.png; sourceTree = "<group>"; };
 		B8864628ED260A9A3571406F /* StationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectionView.swift; sourceTree = "<group>"; };
 		C71A631D4FD7522569E7346D /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		C8D071B7A1BA6DB561E0778F /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		CCE3F976AAA400C87F0C7A1E /* MemoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryView.swift; sourceTree = "<group>"; };
+		D4A1F000D4A1F000D4A1F000 /* DepartureBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DepartureBackground.png; sourceTree = "<group>"; };
 		DC662EF8D30E4A52A6ECEB17 /* MetroStreamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStreamTests.swift; sourceTree = "<group>"; };
 		F9AC6CA2AA127BC4E8A3C2FC /* MemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +75,7 @@
 				302662B89666EA449A09EF09 /* MetroStreamApp.swift */,
 				98F8BD9879CC470732E8CDC4 /* Data */,
 				DE44F1BE25572F4F879EB2A1 /* Models */,
+				B1C0A003B1C0A003B1C0A003 /* Resources */,
 				5CFF2ED1CFC9A3CCD6661FA4 /* Services */,
 				F6CA584059342DEFA1035639 /* Views */,
 			);
@@ -126,6 +131,15 @@
 				9A94F5E874B8A179F070016C /* MetroRepository.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		B1C0A003B1C0A003B1C0A003 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B1C0A001B1C0A001B1C0A001 /* CabinBackground.png */,
+				D4A1F000D4A1F000D4A1F000 /* DepartureBackground.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		C303EE8FBD9DFA51B705E1FE /* Memory */ = {
@@ -200,6 +214,7 @@
 			buildConfigurationList = F35CE422005ED47919BD22BF /* Build configuration list for PBXNativeTarget "MetroStream" */;
 			buildPhases = (
 				F61393ADD9958D59C67BA5DC /* Sources */,
+				B1C0A004B1C0A004B1C0A004 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -220,8 +235,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 055897524B690599D568C42D /* Build configuration list for PBXProject "MetroStream" */;
 			developmentRegion = en;
@@ -242,6 +255,18 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B1C0A004B1C0A004B1C0A004 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1C0A002B1C0A002B1C0A002 /* CabinBackground.png in Resources */,
+				D4A1F001D4A1F001D4A1F001 /* DepartureBackground.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E01A869666F9FF2B65804CE7 /* Sources */ = {
@@ -289,6 +314,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2DZ5RVT9D4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "沙丁鱼罐头";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "用于推荐附近站点";
@@ -451,6 +477,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2DZ5RVT9D4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "沙丁鱼罐头";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "用于推荐附近站点";

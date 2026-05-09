@@ -2,6 +2,7 @@ import SwiftUI
 
 enum SardineColors {
     static let paper = Color(red: 0.96, green: 0.93, blue: 0.86)
+    static let historyBackground = Color(red: 246 / 255, green: 243 / 255, blue: 238 / 255)
     static let paperRaised = Color(red: 1.0, green: 0.98, blue: 0.93)
     static let ink = Color(red: 0.16, green: 0.14, blue: 0.12)
     static let mutedInk = Color(red: 0.48, green: 0.42, blue: 0.34)
